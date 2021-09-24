@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>WebMoney</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    function createAccount(){
+    	var name = $("#accountName").val();
+    	
+    	if( name === "" ){
+    		alert("Please enter an account name");
+    		return;
+    	}
+    	
+    	$.ajax({
+    		url: "account/create",
+    		data: name,
+    		method: "POST",
+    		contentType: "text/plain"
+    	})
+    	.done(function(){
+    		location.reload();
+    	})
+    	.fail(function(data, textStatus, jqXHR){
+    		alert("Failure!\n" + jqXHR);
+    	});
+    }
+    </script>
+</head>
+<body>
+    	Account name: <input type="text" id="accountName">
+    	<input type="button" value="Create" onClick="createAccount();">
+<p>
+    Current accounts:<br>
+    <script>
+		$.getJSON( "account/list", function( data ) {
+			var items = [];
+			$.each( data, function( index, account ) {
+    			items.push( "<li>" + account + "</li>\n" );
+  			});
+			$( "<ul/>", {
+				html: items.join( "" )
+			}).appendTo( "body" );
+		});
+    </script>
+
+</body>
+</html>

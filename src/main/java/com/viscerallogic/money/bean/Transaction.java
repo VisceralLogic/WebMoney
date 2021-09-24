@@ -3,7 +3,7 @@ package com.viscerallogic.money.bean;
 import jakarta.json.bind.annotation.*;
 import java.time.LocalDate;
 
-public class Transaction {
+public class Transaction implements Cloneable {
 	@JsonbDateFormat("yyyy/MM/dd")
     private LocalDate date = LocalDate.now();
     private String ref = "";
@@ -14,6 +14,15 @@ public class Transaction {
     private int cents = 0;
 
     public Transaction(){}
+
+	@Override
+	public Transaction clone(){
+		try {
+			return (Transaction)super.clone();
+		} catch( CloneNotSupportedException e ){
+			return null;
+		}
+	}
 
     public void setDate(LocalDate date){
 		this.date = date;
