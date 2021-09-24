@@ -4,7 +4,7 @@ import jakarta.json.bind.annotation.*;
 import java.time.LocalDate;
 
 public class Transaction implements Cloneable {
-	@JsonbDateFormat("yyyy/MM/dd")
+	@JsonbDateFormat("yyyy-MM-dd")
     private LocalDate date = LocalDate.now();
     private String ref = "";
     private String payee = "";

@@ -35,7 +35,7 @@
 		$.getJSON( "account/list", function( data ) {
 			var items = [];
 			$.each( data, function( index, account ) {
-    			items.push( "<li>" + account + "</li>\n" );
+    			items.push( "<li><a href=\"account.jsp?account=" + account + "\">" + account + "</a></li>\n" );
   			});
 			$( "<ul/>", {
 				html: items.join( "" )

@@ -3,8 +3,8 @@
      see implementation details http://jersey.java.net/nonav/documentation/latest/jax-rs.html#d4e194 -->
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<context-param>
-		<param-name>directory</param-name>
-		<param-value>/var/local/webmoney/</param-value>
+        <param-name>directory</param-name>
+        <param-value>/var/local/webmoney/</param-value>
 	</context-param>
 
    <security-constraint>
