@@ -58,6 +58,7 @@
 			var items = [];
 			var i = 0;
 			var account = "";
+			var totalCents = 0;
 			$.each( data, function( index, transaction ) {
 				items.push("<tr><td class=\"date\">" + transaction.date + "</td>"
 						+ "<td class=\"ref\">" + transaction.ref + "</td>"
@@ -74,8 +75,12 @@
 						+ "<td class=\"value\">" + (transaction.cents/100).toFixed(2) + "</td>"
 						+ "<td><input type=\"button\" value=\"X\" id=\"delete" + i + "\" onClick=\"deleteTransaction(" + i + ");\"></td></tr>\n");
 				i++;
+				totalCents += transaction.cents;
 			});
 			$("#transactions").append(items.join(""));
+			$("#total").html(
+				totalCents > 0 ? "$" + (totalCents/100).toFixed(2) : "-$" + (totalCents/-100).toFixed(2)
+			);
 		});
 
 		$.getJSON( "account/list", function( data ){
@@ -89,6 +94,8 @@
 </head>
 <body>
 <table id="transactions">
+<tr><td colspan="8"><h2>Account: <%= request.getParameter("account")%></h2></td></tr>
+<tr><td colspan="8"><h3>Total: <div id="total"></div></h3></td></tr>
 <tr>
 	<th>Date</th>
 	<th>Ref</th>
