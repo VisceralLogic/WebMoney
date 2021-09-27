@@ -142,10 +142,26 @@ public class AccountService{
 		if( !user.containsKey(name) )
 			throw new WebApplicationException("Account not found", Response.Status.NOT_FOUND);
 
-		boolean result = user.get(name).removeTransaction(t);
+		//check if this is a transfer between accounts
+		if( t.getCategory().matches("^\\[.+\\]$") ){
+			String category = t.getCategory();
+			String other = category.substring(1,category.length()-1);
 
+			if( !user.containsKey(other) )
+				throw new WebApplicationException("Account not found: " + other, Response.Status.NOT_FOUND);
+
+			Transaction t2 = t.clone();
+			t2.setCategory("[" + name + "]");
+			t2.setCents(-t.getCents());
+
+			boolean result = user.get(other).removeTransaction(t2);
+			if( !result )
+				throw new WebApplicationException("Transaction not found in other account", Response.Status.NOT_FOUND);
+		}
+
+		boolean result = user.get(name).removeTransaction(t);
 		if( !result )
-			throw new WebApplicationException("Transaction not found", Response.Status.NOT_FOUND);
+			throw new WebApplicationException("Transaction not found in account", Response.Status.NOT_FOUND);
 
 		saveAccounts();
 	}

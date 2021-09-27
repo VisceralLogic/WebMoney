@@ -102,4 +102,12 @@ public class Transaction implements Cloneable {
 
     	return true;
     }
+
+    @Override
+    public String toString(){
+    	return "{date:" + date + ",ref:" + ref
+    		+ ",payee:" + payee + ",category:" + category
+    		+ ",memo:" + memo + ",cleared:" + cleared
+    		+ ",cents:" + cents + "}";
+    }
 }

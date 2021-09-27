@@ -1,6 +1,6 @@
 package com.viscerallogic.money.bean;
 
-import java.util.Vector;
+import java.util.*;
 
 public class Account {
 	private String name = "<New Account>";
@@ -40,5 +40,19 @@ public class Account {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String toString(){
+		StringBuilder account = new StringBuilder("{" + name + ":");
+		for( Enumeration<Transaction> e = transactions.elements(); e.hasMoreElements(); ){
+			Transaction t = e.nextElement();
+			account.append(t);
+			if( e.hasMoreElements() ){
+				account.append(",\n");
+			}
+		}
+		account.append("}");
+		return account.toString();
 	}
 }
